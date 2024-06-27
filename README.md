@@ -17,3 +17,8 @@ bash <(curl -s https://raw.githubusercontent.com/1xtAsh/MyScripts/main/upload.sh
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/1xtAsh/MyScripts/main/download.sh)
 ```
+
+### My ROM build Script
+```bash
+bash <(curl -s https://raw.githubusercontent.com/1xtAsh/MyScripts/main/buildROM.sh)
+```
