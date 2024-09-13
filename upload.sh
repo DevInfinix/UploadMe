@@ -62,6 +62,7 @@ fi
 
 if [ $UP == 8 ]; then
 FN="$(basename $FP)"
-BZUP=https://buzzheavier.com/f/$(curl -#o - -T "$FP" "https://w.buzzheavier.com/t/$FN" | jq -r '.id')
+echo -e "Started uploading $FN on Buzzheavier..."
+BZUP=https://buzzheavier.com/f/$(curl -#o - -T "$FP" https://w.buzzheavier.com/t/$FN | cut -d : -f 2 | cut -d } -f 1 | grep -Po '[^"]*')
 echo $BZUP
 fi
