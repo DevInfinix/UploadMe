@@ -53,7 +53,7 @@ quit_program() {
 
 
 # Main menu options
-print_color "$G" " "
+echo " "
 
 print_color "$C" "
 ██╗   ██╗██████╗ ██╗      ██████╗  █████╗ ██████╗     ███╗   ███╗███████╗
@@ -66,7 +66,7 @@ print_color "$C" "
 
 print_color "$M" "⭐ Star me on GitHub: https://github.com/DevInfinix/UploadMe"
 
-print_color "$G" " "
+echo " "
 
 print_color "$B" "[1] Github Release [gh auth login]
 [2] Devuploads [Key]
