@@ -21,16 +21,25 @@ print_color() {
 
 
 # Config files
-config() {
+handle_config() {
     local CONFIG_FILE="$1"
     local CONFIG_VAR="$2"
     local PROMPT="$3"
-
+    
     if [ -f "$CONFIG_FILE" ]; then
         source "$CONFIG_FILE"
+
+        if [[ "$CONFIG_VAR" == "UPLOAD_DIRECTORY" && -z "$UPLOAD_DIRECTORY" ]]; then
+            read -p "$PROMPT" VALUE
+            echo "UPLOAD_DIRECTORY=$VALUE" >> "$CONFIG_FILE"
+        elif [[ "$CONFIG_VAR" == "BEARER_TOKEN" && -z "$BEARER_TOKEN" ]]; then
+            read -p "$PROMPT" VALUE
+            echo "BEARER_TOKEN=$VALUE" >> "$CONFIG_FILE"
+        fi
+
     else
         read -p "$PROMPT" VALUE
-        print_color "$G" "$CONFIG_VAR=$VALUE" > "$CONFIG_FILE"
+        echo "$CONFIG_VAR=$VALUE" > "$CONFIG_FILE"
     fi
 }
 
@@ -126,7 +135,6 @@ elif [ $UP == 4 ]; then
 
 # Gofile upload
 elif [ "$UP" == "5" ]; then
-    CONFIG_FILE="$HOME/.uploadme-gofile.conf"
     print_color "$M" "Choose upload type:"
     print_color "$M" "[1] Anonymous upload"
     print_color "$M" "[2] User upload (with Bearer token)"
@@ -138,10 +146,14 @@ elif [ "$UP" == "5" ]; then
         curl -X POST https://${SERVER}.gofile.io/contents/uploadfile -F "file=@$FP" | grep -Po '(https://gofile.io/d/)[^"]*'
     
     elif [ "$UPLOAD_TYPE" == "2" ]; then
+        CONFIG_FILE="$HOME/.uploadme-gofile.conf"
         handle_config "$CONFIG_FILE" "BEARER_TOKEN" "Please enter your Bearer token: "
+        handle_config "$CONFIG_FILE" "UPLOAD_DIRECTORY" "Please enter the directory ID: "
+
         SERVER=$(curl -X GET 'https://api.gofile.io/servers' | grep -Po '(store*)[^"]*' | tail -n 1)
         print_color "$G" "Started user upload on Gofile with Bearer token..."
-        curl -X POST https://${SERVER}.gofile.io/contents/uploadfile -H "Authorization: Bearer $BEARER_TOKEN" -F "file=@$FP" | grep -Po '(https://gofile.io/d/)[^"]*'
+
+        curl -X POST https://${SERVER}.gofile.io/contents/uploadfile -H "Authorization: Bearer $BEARER_TOKEN" -F "file=@$FP" -F "folderId=$UPLOAD_DIRECTORY" | grep -Po '(https://gofile.io/d/)[^"]*'
     else
         print_color "$R" "Invalid option selected."
     fi
