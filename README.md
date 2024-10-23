@@ -1,4 +1,4 @@
-![screenshot](https://raw.githubusercontent.com/DevInfinix/UploadMe/main/images/upload_me-banner.jpg)
+![banner](https://raw.githubusercontent.com/DevInfinix/UploadMe/main/images/upload_me-banner.jpg)
 <h1 align="center">
     UploadMe
 </h1>
@@ -23,9 +23,6 @@
 </p>
 
 
-
-<hr>
-
 ### Key Features:
 - **Multi-Platform Support**: Upload files to platforms like Github, DevUploads, PixelDrain, Gofile, Sourceforge, and more.
 - **One-Time Setup**: Save your API keys or tokens for each service, no need to re-enter credentials for future uploads.
@@ -33,6 +30,10 @@
 - **Config File Management**: Automatically creates and manages configuration files for seamless future uploads.
 - **Lightweight & Efficient**: Minimal dependencies, making it quick and easy to set up and use.
 - **Terminal-Based**: Fully operated from the terminal.
+
+### Screenshots:
+- **Menu Page**
+![screenshot-menu](https://raw.githubusercontent.com/DevInfinix/UploadMe/main/images/uploadme-screenshot-1.png)
 
 ## How To Use
 
