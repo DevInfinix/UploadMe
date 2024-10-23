@@ -20,37 +20,14 @@ config() {
 # Main menu options
 echo " "
 
-ascii_art=$(cat << "EOF"
+echo "
 ██╗   ██╗██████╗ ██╗      ██████╗  █████╗ ██████╗     ███╗   ███╗███████╗
 ██║   ██║██╔══██╗██║     ██╔═══██╗██╔══██╗██╔══██╗    ████╗ ████║██╔════╝
 ██║   ██║██████╔╝██║     ██║   ██║███████║██║  ██║    ██╔████╔██║█████╗  
 ██║   ██║██╔═══╝ ██║     ██║   ██║██╔══██║██║  ██║    ██║╚██╔╝██║██╔══╝  
 ╚██████╔╝██║     ███████╗╚██████╔╝██║  ██║██████╔╝    ██║ ╚═╝ ██║███████╗
  ╚═════╝ ╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝     ╚═╝     ╚═╝╚══════╝
-EOF
-)
-
-colors=(
-    "\033[38;5;196m"
-    "\033[38;5;202m"
-    "\033[38;5;214m"
-    "\033[38;5;82m"
-    "\033[38;5;27m"
-    "\033[38;5;93m" 
-)
-
-reset="\033[0m"
-
-function apply_gradient() {
-    local input="$1"
-    local index=0
-    while IFS= read -r line; do
-        echo -e "${colors[index % ${#colors[@]}]}$line${reset}"
-        index=$((index + 1))
-    done <<< "$input"
-}
-
-apply_gradient "$ascii_art"
+"
 
 echo "⭐ Star me on GitHub: https://github.com/DevInfinix/UploadMe"
 
