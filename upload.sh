@@ -16,7 +16,7 @@ RESET="\033[0m"  # Reset color
 print_color() {
     local color="$1"
     shift
-    print_color "$G" -e "${color}$*${RESET}"
+    echo -e "${color}$*${RESET}"
 }
 
 
