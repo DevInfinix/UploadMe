@@ -56,34 +56,30 @@ if [ "$UP" == "1" ]; then
     echo -e "Started uploading file on Github..."
     gh release create "$FN" --generate-notes --repo "$GH"
     gh release upload --clobber "$FN" "$FP" --repo "$GH"
-fi
 
 # Devuploads upload
-if [ "$UP" == "2" ]; then
+elif [ "$UP" == "2" ]; then
     CONFIG_FILE="$HOME/.uploadme-devuploads.conf"
     handle_config "$CONFIG_FILE" "KEY" "Please enter DevUploads key: "
     
     echo -e "Started uploading file on DevUploads..."
     bash <(curl -s https://devuploads.com/upload.sh) -f "$FP" -k "$KEY"
-fi
 
 # PixelDrain upload
-if [ "$UP" == "3" ]; then
+elif [ "$UP" == "3" ]; then
     CONFIG_FILE="$HOME/.uploadme-pixeldrain.conf"
     handle_config "$CONFIG_FILE" "KEY" "Please enter PixelDrain key: "
     
     echo -e "Started uploading file on PixelDrain..."
     curl -T "$FP" -u ":$KEY" https://pixeldrain.com/api/file/
-fi
 
 # Temp Upload
-if [ $UP == 4 ]; then
+elif [ $UP == 4 ]; then
     echo -e "Started uploading file on Temp..."
     curl -T $FP temp.sh
-fi
 
 # Gofile upload
-if [ "$UP" == "5" ]; then
+elif [ "$UP" == "5" ]; then
     CONFIG_FILE="$HOME/.uploadme-gofile.conf"
     SERVER=$(curl -X GET 'https://api.gofile.io/servers' | grep -Po '(store*)[^"]*' | tail -n 1)
 
@@ -104,24 +100,23 @@ if [ "$UP" == "5" ]; then
     else
         echo "Invalid option selected."
     fi
-fi
 
-if [ $UP == 6 ]; then
+elif [ $UP == 6 ]; then
     echo -e "Started uploading file on Oshi.at..."
     curl -T $FP https://oshi.at
-fi
 
-if [ $UP == 7 ]; then
+elif [ $UP == 7 ]; then
     echo -e "Started uploading file on Sourceforge..."
     read -p "Please enter Username: " USER
     read -p "Please enter upload location:
     Note: Path after /home/frs/project/" UPL
     scp $FP "$USER"@frs.sourceforge.net:/home/frs/project/$UPL
-fi
 
-if [ $UP == 8 ]; then
+elif [ $UP == 8 ]; then
     FN="$(basename $FP)"
     echo -e "Started uploading $FN on Buzzheavier..."
     BZUP=https://buzzheavier.com/f/$(curl -#o - -T "$FP" https://w.buzzheavier.com/t/$FN | cut -d : -f 2 | cut -d } -f 1 | grep -Po '[^"]*')
     echo $BZUP
+else
+    echo "Invalid option: Please select a valid option (1-8)"
 fi
