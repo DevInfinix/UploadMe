@@ -1,3 +1,4 @@
+![screenshot](https://raw.githubusercontent.com/DevInfinix/UploadMe/main/images/upload_me-banner.jpg)
 <h1 align="center">
     UploadMe
 </h1>
@@ -21,7 +22,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://raw.githubusercontent.com/DevInfinix/UploadMe/main/images/upload_me-banner.jpg)
+
 
 <hr>
 
