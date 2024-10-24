@@ -25,21 +25,23 @@ handle_config() {
     local CONFIG_FILE="$1"
     local CONFIG_VAR="$2"
     local PROMPT="$3"
-    
+    local VALUE=""
+
     if [ -f "$CONFIG_FILE" ]; then
         source "$CONFIG_FILE"
+    fi
 
-        if [[ "$CONFIG_VAR" == "UPLOAD_DIRECTORY" && -z "$UPLOAD_DIRECTORY" ]]; then
-            read -p "$PROMPT" VALUE
-            echo "UPLOAD_DIRECTORY=$VALUE" >> "$CONFIG_FILE"
-        elif [[ "$CONFIG_VAR" == "BEARER_TOKEN" && -z "$BEARER_TOKEN" ]]; then
-            read -p "$PROMPT" VALUE
-            echo "BEARER_TOKEN=$VALUE" >> "$CONFIG_FILE"
-        fi
-
-    else
+    if [[ "$CONFIG_VAR" == "UPLOAD_DIRECTORY" && -z "$UPLOAD_DIRECTORY" ]]; then
         read -p "$PROMPT" VALUE
-        echo "$CONFIG_VAR=$VALUE" > "$CONFIG_FILE"
+        echo "UPLOAD_DIRECTORY=$VALUE" >> "$CONFIG_FILE"
+    elif [[ "$CONFIG_VAR" == "BEARER_TOKEN" && -z "$BEARER_TOKEN" ]]; then
+        read -p "$PROMPT" VALUE
+        echo "BEARER_TOKEN=$VALUE" >> "$CONFIG_FILE"
+    fi
+
+    if [ -z "${!CONFIG_VAR}" ]; then
+        read -p "$PROMPT" VALUE
+        echo "$CONFIG_VAR=$VALUE" >> "$CONFIG_FILE"
     fi
 }
 
@@ -85,12 +87,13 @@ print_color "$B" "[1] Github Release [gh auth login]
 [6] oshi.at
 [7] Sourceforge [Key]
 [8] Buzzheavier
-[9] Quit
+[9] Bashupload
+[10] Quit
 "
 print_color "$R" "NOTE: This is a one-time setup. To reset, delete the respective .conf files in '~/' (your home directory)."
 
 read -p "Please enter your number: " UP
-if [ "$UP" == "9" ]; then
+if [ "$UP" == "10" ]; then
     quit_program
 fi
 read -p "Please enter file path/name: " FP
@@ -177,6 +180,11 @@ elif [ $UP == 8 ]; then
     print_color "$C" "Started uploading $FN on Buzzheavier..."
     BZUP=https://buzzheavier.com/f/$(curl -#o - -T "$FP" https://w.buzzheavier.com/t/$FN | cut -d : -f 2 | cut -d } -f 1 | grep -Po '[^"]*')
     print_color "$G" $BZUP
+
+
+elif [ "$UP" == "9" ]; then
+    print_color "$G" "Started uploading file on BashUpload..."
+    curl bashupload.com -T "$FP"
 
 
 else
