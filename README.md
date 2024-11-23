@@ -87,7 +87,7 @@ Apache 2.0
 
 ---
 
-> Website [thesamstudios.tech](https://www.thesamstudios.tech) &nbsp;&middot;&nbsp;
+> Website [thesamstudios.pages.dev](https://thesamstudios.pages.dev) &nbsp;&middot;&nbsp;
 > GitHub [@DevInfinix](https://github.com/DevInfinix) &nbsp;&middot;&nbsp;
 > Telegram [@DevInfinix](https://t.me/devinfinix_labs_discussions)
 > Twitter [@dev_infinix](https://twitter.com/dev_infinix)
